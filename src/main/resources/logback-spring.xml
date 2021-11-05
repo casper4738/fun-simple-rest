@@ -1,0 +1,21 @@
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                <!-- @formatter:off -->
+                [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} - %msg%replace(%xException){'[\r\n]','~~'}%nopex%n
+                <!-- @formatter:on -->
+            </pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.springframework" level="ERROR"/>
+    <logger name="org.hibernate" level="ERROR"/>
+
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+
+</configuration>

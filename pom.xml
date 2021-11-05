@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.rnd.sample.unittest</groupId>
+    <artifactId>unit-test</artifactId>
+    <version>1.0.0</version>
+    <packaging>war</packaging>
+    <name>UnitTestSample</name>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.4</version>
+    </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>11</java.version>
+        <!-- DONT FORGET ADD EXCLUDE TO MAVEN JACOCO CONFIGURATION  -->
+        <sonar.coverage.exclusions>
+            **/com/rnd/sample/unittest/**/response/**,
+            **/com/rnd/sample/unittest/**/dto/**,
+            **/com/rnd/sample/unittest/**/entity/**,
+            **/com/rnd/sample/unittest/exception/**
+        </sonar.coverage.exclusions>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- database -->
+      <!--  <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+-->
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.18</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.5.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>3.11.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>3.0.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>java-hamcrest</artifactId>
+            <version>2.0.0.0</version>
+            <scope>test</scope>
+        </dependency>
+
+
+    </dependencies>
+
+
+    <build>
+        <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+        <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <!-- BUILD INFORMATION -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestSections>
+                            <manifestSection>
+                                <name>Project Information</name>
+                                <manifestEntries>
+                                    <Build-Time>${maven.build.timestamp}</Build-Time>
+                                    <Project-groupId>${project.groupId}</Project-groupId>
+                                    <Project-artifactId>${project.artifactId}</Project-artifactId>
+                                    <Project-version>${project.version}</Project-version>
+                                </manifestEntries>
+                            </manifestSection>
+                            <manifestSection>
+                                <name>Host Information</name>
+                                <manifestEntries>
+                                    <Built-By>${user.name}</Built-By>
+                                    <Build-Host>${agent.name}</Build-Host>
+                                    <Build-OS>${os.name}</Build-OS>
+                                </manifestEntries>
+                            </manifestSection>
+                        </manifestSections>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>false</addDefaultSpecificationEntries>
+                            <addClasspath>false</addClasspath>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.7</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <!-- attached to Maven test phase -->
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- DONT FORGET ADD EXCLUDE TO PROPERTIES <sonar.coverage.exclusions>  -->
+                    <excludes>
+                        <exclude>**/com/rnd/sample/unittest/**/response/**</exclude>
+                        <exclude>**/com/rnd/sample/unittest/**/dto/**</exclude>
+                        <exclude>**/com/rnd/sample/unittest/**/entity/**</exclude>
+                        <exclude>**/com/rnd/sample/unittest/exception/**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <profiles>
+        <!-- skip test -->
+        <profile>
+            <id>skipTest</id>
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+        </profile>
+        <!-- unit test only -->
+        <profile>
+            <id>unit</id>
+            <properties>
+                <excludedGroups>integration</excludedGroups>
+            </properties>
+        </profile>
+        <!-- class contoller only -->
+        <profile>
+            <id>integration</id>
+            <properties>
+                <groups>integration</groups>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>

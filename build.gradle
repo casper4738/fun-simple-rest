@@ -1,0 +1,129 @@
+plugins {
+    id "org.springframework.boot" version "2.4.4"
+    id "io.spring.dependency-management" version "1.0.11.RELEASE"
+    id "org.sonarqube" version "3.2.0"
+    id "war"
+    id "java"
+    id "jacoco"
+}
+
+
+group = "com.rnd.sample.unittest"
+version = "0.0.1"
+sourceCompatibility = "11"
+def jarName = "unit-test"
+
+bootJar {
+    archiveFileName = jarName + "." + archiveExtension.get()
+    manifest {
+        attributes(
+                "Built-By": System.properties["user.name"],
+                "Build-Timestamp": new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()),
+                "Created-By": "Gradle ${gradle.gradleVersion}",
+                "Build-Jdk": "${System.properties["java.version"]} (${System.properties["java.vendor"]} ${System.properties["java.vm.version"]})",
+                "Build-OS": "${System.properties["os.name"]} ${System.properties["os.arch"]} ${System.properties["os.version"]}"
+        )
+    }
+}
+
+bootWar {
+    archiveFileName = jarName + "." + archiveExtension.get()
+}
+
+
+repositories {
+    // for non proxy
+    mavenCentral()
+
+    // for proxy
+//    maven { url "http://bcaartifactory.intra.bca.co.id:8080/artifactory/list/Repo1Maven/" }
+//    maven { url "http://bcaartifactory.intra.bca.co.id:8080/artifactory/list/central.maven.org/" }
+//    maven { url "http://bcaartifactory.intra.bca.co.id:8080/artifactory/list/repo.spring.io/" }
+//    maven { url("http://bcaartifactory.intra.bca.co.id:8080/artifactory/list/RepositoryDevOps/") }
+//    maven { url "http://bcaartifactory.intra.bca.co.id:8080/artifactory/list/packages.confluent.io/" }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+task integrationTest(type: Test) {
+    useJUnitPlatform {
+        includeTags "integration"
+    }
+    dependsOn test
+    finalizedBy jacocoTestReport
+}
+
+def coverageExclusions = [
+        "**/com/rnd/sample/unittest/**/response/**",
+        "**/com/rnd/sample/unittest/**/dto/**",
+        "**/com/rnd/sample/unittest/**/entity/**",
+        "**/com/rnd/sample/unittest/exception/**"
+]
+
+jacocoTestReport() {
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: coverageExclusions)
+        }))
+    }
+    executionData(fileTree(buildDir).include("/jacoco/*.exec"))
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.enabled true
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "SampleUnitTest"
+        property "sonar.projectName", "SampleUnitTest"
+        property "sonar.projectVersion", version
+
+        property "sonar.sources", "src/main/java"
+        property "sonar.tests", "src/test/java"
+        property "sonar.java.binaries", "build/classes/java/main"
+        property "sonar.java.test.binaries", "build/classes/java/test"
+
+        property 'sonar.java.coveragePlugin', "jacoco"
+        property 'sonar.coverage.jacoco.xmlReportPaths', 'build/reports/jacoco/test/jacocoTestReport.xml'
+
+        property "sonar.coverage.exclusions", coverageExclusions
+    }
+}
+
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-web"
+
+    // database
+//    runtimeOnly 'mysql:mysql-connector-java'
+//    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+
+
+    // sonarqube
+    implementation "com.google.code.findbugs:jsr305:3.0.0"
+
+    //lombok
+    compileOnly "org.projectlombok:lombok:1.18.18"
+    testCompileOnly "org.projectlombok:lombok:1.18.18"
+    annotationProcessor "org.projectlombok:lombok:1.18.18"
+    testAnnotationProcessor "org.projectlombok:lombok:1.18.18"
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude group: "junit", module: "junit"
+    }
+    testImplementation "org.junit.jupiter:junit-jupiter:5.7.2"
+    testImplementation "org.mockito:mockito-core:3.11.2"
+    testImplementation "org.mockito:mockito-junit-jupiter:3.0.0"
+    testImplementation "org.hamcrest:java-hamcrest:2.0.0.0"
+}
