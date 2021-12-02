@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"com.rnd.sample.unittest"})
+@ComponentScan({"com.rnd.fun.simple.rest"})
 public class FunSimpleApplication {
 
     public static void main(String[] args) {
