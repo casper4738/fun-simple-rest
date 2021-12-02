@@ -51,6 +51,14 @@ Install the dependencies and devDependencies and start the server.
 cd "{FOLDER_PROJECT}"
 gradlew build
 ```
+## Heroku
+https://github.com/heroku/heroku-gradle/tree/2.0.0
+
+Build your application, and run the deployHeroku task:
+
+```
+gradlew build deployHeroku
+```
 
 ## Tools
 

@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.rnd.sample.unittest</groupId>
-    <artifactId>unit-test</artifactId>
+    <artifactId>fun-simple-rest</artifactId>
     <version>1.0.0</version>
     <packaging>war</packaging>
-    <name>UnitTestSample</name>
+    <name>FunSimpleRest</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -163,6 +163,23 @@
                         <exclude>**/com/rnd/sample/unittest/**/entity/**</exclude>
                         <exclude>**/com/rnd/sample/unittest/exception/**</exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.heroku.sdk</groupId>
+                <artifactId>heroku-maven-plugin</artifactId>
+                <version>2.0.3</version>
+                <configuration>
+                    <appName>callicoder-heroku-maven-demo</appName>
+                    <includeTarget>false</includeTarget>
+                    <includes>
+                        <include>${project.build.directory}/${project.build.finalName}.war</include>
+                    </includes>
+                    <jdkVersion>${java.version}</jdkVersion>
+                    <processTypes>
+                        <web>java $JAVA_OPTS -jar ${project.build.directory}/${project.build.finalName}.war</web>
+                    </processTypes>
                 </configuration>
             </plugin>
 
