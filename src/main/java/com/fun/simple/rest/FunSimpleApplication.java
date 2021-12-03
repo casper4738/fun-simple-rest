@@ -1,11 +1,11 @@
-package com.rnd.fun.simple.rest;
+package com.fun.simple.rest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"com.rnd.fun.simple.rest"})
+@ComponentScan({"com.fun.simple.rest"})
 public class FunSimpleApplication {
 
     public static void main(String[] args) {

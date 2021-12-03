@@ -1,4 +1,4 @@
-package com.rnd.fun.simple.rest;
+package com.fun.simple.rest;
 
 import org.junit.jupiter.api.Test;
 

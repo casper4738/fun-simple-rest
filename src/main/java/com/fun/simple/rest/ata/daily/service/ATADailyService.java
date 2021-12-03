@@ -1,4 +1,4 @@
-package com.rnd.fun.simple.rest.ata.daily.service;
+package com.fun.simple.rest.ata.daily.service;
 
 import org.springframework.stereotype.Service;
 

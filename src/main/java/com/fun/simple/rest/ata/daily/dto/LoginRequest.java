@@ -1,4 +1,4 @@
-package com.rnd.fun.simple.rest.ata.daily.dto;
+package com.fun.simple.rest.ata.daily.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;

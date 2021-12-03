@@ -1,7 +1,7 @@
-package com.rnd.fun.simple.rest.ata.daily.controller;
+package com.fun.simple.rest.ata.daily.controller;
 
-import com.rnd.fun.simple.rest.ata.daily.dto.LoginRequest;
-import com.rnd.fun.simple.rest.ata.daily.service.ATADailyService;
+import com.fun.simple.rest.ata.daily.dto.LoginRequest;
+import com.fun.simple.rest.ata.daily.service.ATADailyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
