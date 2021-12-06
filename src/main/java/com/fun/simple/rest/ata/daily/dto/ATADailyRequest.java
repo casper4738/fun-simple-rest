@@ -11,8 +11,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonNaming(PropertyNamingStrategy.LowerCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class ATADailyRequest {
+    @Builder.Default
     private String themeColor = "0076D7";
     private String title;
     private String subtitle;

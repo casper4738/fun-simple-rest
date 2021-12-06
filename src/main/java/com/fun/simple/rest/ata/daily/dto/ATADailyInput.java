@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategy.LowerCaseStrategy.class)
 public class ATADailyInput {
-    private String themeColor = "0076D7";
+    private String themeColor;
     private String title;
     private String subtitle;
 
