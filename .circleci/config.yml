@@ -16,7 +16,15 @@ jobs:
       - checkout
       - run:
           name: "Say hello"
-          command: "echo Hello, World!"
+          command: |
+              current_date=`date '+%d-%m-%Y'`
+              curl --location --request POST 'https://fun-simple-rest.herokuapp.com/api/ata/daily/teams' \
+              --header 'Content-Type: application/json' \
+              --data '{
+                  "themeColor": "0076D7",
+                  "title": "DAILY UPDATE ${current_date}",
+                  "subtitle": "Finish What You Start"
+              }'
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
