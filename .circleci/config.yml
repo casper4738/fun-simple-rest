@@ -37,6 +37,6 @@ workflows:
          filters:
             branches:
               only:
-                - master
+                - circleci-project-setup
     jobs:
       - say-hello
