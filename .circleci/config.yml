@@ -18,11 +18,12 @@ jobs:
           name: "Say hello"
           command: |
               current_date=`date '+%d-%m-%Y'`
+              echo "current_date ${current_date}"
               curl --location --request POST 'https://fun-simple-rest.herokuapp.com/api/ata/daily/teams' \
               --header 'Content-Type: application/json' \
               --data '{
                   "themeColor": "0076D7",
-                  "title": "DAILY UPDATE ${current_date}",
+                  "title": "DAILY UPDATE $current_date",
                   "subtitle": "Finish What You Start"
               }'
 
