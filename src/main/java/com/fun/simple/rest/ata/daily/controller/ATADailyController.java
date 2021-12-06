@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import retrofit2.http.Body;
 
 @RestController
 @RequestMapping("/api/ata")
@@ -24,7 +24,7 @@ public class ATADailyController {
 	}
 
 	@PostMapping("daily/teams")
-	public ResponseEntity<ATADailyResponse> dailyTeams(@Body ATADailyRequest request) {
+	public ResponseEntity<ATADailyResponse> dailyTeams(@RequestBody ATADailyRequest request) {
 		return new ResponseEntity<>(
 				ATADailyResponse.builder()
 						.result(service.dailyTeams(ATADailyInput.builder()
