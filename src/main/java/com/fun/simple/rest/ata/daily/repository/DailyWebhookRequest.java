@@ -1,4 +1,4 @@
-package com.fun.simple.rest.ata.daily.retrofit;
+package com.fun.simple.rest.ata.daily.repository;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;

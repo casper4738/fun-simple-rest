@@ -1,6 +1,7 @@
-package com.fun.simple.rest.ata.daily.retrofit;
+package com.fun.simple.rest.ata.daily.repository;
 
 import com.fun.simple.rest.ApiClient;
+import com.fun.simple.rest.ata.daily.FunGlobal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class TeamsDailyService {
     }
 
     public TeamsDailyApi getTeamsDailyApi() {
-        return apiClient.createService(TeamsDailyApi.class);
+        return apiClient.createService(FunGlobal.TEAMS_WEBHOOK_INCOMING, TeamsDailyApi.class);
     }
 
 

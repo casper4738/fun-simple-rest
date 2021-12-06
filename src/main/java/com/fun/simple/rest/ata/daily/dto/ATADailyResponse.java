@@ -12,9 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class LoginRequest {
+public class ATADailyResponse {
 
-    private String username;
-    private String password;
+    private String result;
 
 }
