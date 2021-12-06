@@ -2,5 +2,5 @@ server.port: ${PORT:8080}
 name: FunSimpleRest
 
 proxy.active: false
-proxy.hostname:
-proxy.port:
+proxy.hostname: hostname
+proxy.port: 0
